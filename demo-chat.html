@@ -1,81 +1,78 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <title>Google Chat Demo</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Out There Demo Conversation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap" rel="stylesheet">
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+      * { box-sizing: border-box; }
       body {
-        font-family: "Montserrat", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        background: #f5f7fb;
         margin: 0;
-        padding: 24px;
+        padding: 28px 16px;
+        background: #f3f5fa;
+        color: #202124;
+        font-family: "Montserrat", "Segoe UI", Tahoma, sans-serif;
+        font-size: 15px;
+        font-weight: 450;
       }
-
-      .chat {
+      main {
         max-width: 760px;
         margin: 0 auto;
-        background: white;
+        padding: 26px;
         border-radius: 16px;
-        padding: 24px;
-        box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        background: #fff;
+        box-shadow: 0 8px 28px #18243b18;
       }
-
-      .msg {
-        margin-bottom: 14px;
-        padding: 12px 14px;
-        border-radius: 24px;
-        font-size: 18px;
-      }
-
-      .timestamp {
-        text-align: center;
-        font-size: 16px;
-        color: #999;
-        margin-top: 4px;
-        margin-bottom: 12px;
-      }
-
-      .you {
-        background: #dfe9ff;
-        margin-left: 80px;
-        border-bottom-right-radius: 4px;
-      }
-
-      .them {
-        background: #f0f0f0;
-        margin-right: 80px;
-        border-bottom-left-radius: 4px;
-      }
-
-      strong {
-        display: block;
-        margin-bottom: 4px;
-      }
-
-      h2 {
-        text-align: center;
-        font-size: 30px;
-        margin-top: 0;
-        margin-bottom: 12px;
-      }
-
+      h1 { margin: 0; font-size: 36px; font-weight: 750; }
+      .intro { color: #5f6368; font-size: 15px; font-weight: 450; line-height: 1.5; }
+      .timestamp { margin: 20px 0; color: #777; text-align: center; font-size: 14px; font-weight: 400; }
+      .message { display: table; width: fit-content; max-width: 75%; margin: 12px 0; padding: 12px 15px; border-radius: 24px; font-size: 18px; font-weight: 450; line-height: 1.5; }
+      .message.dimitry { margin-right: auto; border-bottom-left-radius: 4px; background: #f0f1f4; text-align: left;}
+      .message.you { margin-left: auto; border-bottom-right-radius: 4px; background: #e3ebff; text-align: right; }
+      .sender { display: block; margin-bottom: 4px; color: #000000; font-size: 15px; font-weight: 700; }
+      .note { margin-top: 30px; padding: 12px; border-left: 4px solid #bacde6; background: #f8f9fc; color: #555; font-size: 14px; font-weight: 400; line-height: 1.5; border-radius: 2px 10px 10px 2px;}
     </style>
   </head>
   <body>
-    <div class="chat">
-      <h2>Google Chat Demo</h2>
-      <div class="timestamp">Sep 16, 1:32 PM</div>
-      <div class="msg them"><strong>Dimitry</strong>hey Stellan let's film the fake Apple Event today</div>
-      <div class="msg you"><strong>You</strong>ok Dimitry what roducts do you have</div>
-      <div class="msg them"><strong>Dimitry</strong>I have AirPods Pro and iPhone 16 Pro</div>
-      <div class="msg you"><strong>You</strong>I have some good ideas for shot types!</div>
-      <div class="msg you"><strong>You</strong>Bring a different shirt for each shot</div>
-      <div class="msg them"><strong>Dimitry</strong>Sounds good.</div>
-      <div class="msg them"><strong>Dimitry</strong>I have 3 different shirts and my products</div>
-      <div class="msg you"><strong>You</strong>Meet at Northpark clubhouse at 2:15</div>
-      <div class="msg you"><strong>You</strong>After coding class</div>
-      <div class="msg them"><strong>Dimitry</strong>See you there</div>
-    </div>
+    <main>
+      <h1>Fake Apple Event video</h1>
+      <div class="timestamp">Sep 15, 2026 · 1:06 PM</div>
+      <div class="message dimitry"><span class="sender">Dimitry</span>Hey, are you free to work on the fake Apple Event video today?</div>
+      <div class="message you"><span class="sender">You</span>I think so. What time were you thinking?</div>
+      <div class="message dimitry"><span class="sender">Dimitry</span>Whenever works for you. I can bring the products over.</div>
+      <div class="message you"><span class="sender">You</span>I have coding class until 1:30, but after that should be okay.</div>
+      <div class="message dimitry"><span class="sender">Dimitry</span>Oh right, I forgot about class. No rush, we can keep it simple.</div>
+      <div class="message you"><span class="sender">You</span>What products do you have? I was thinking we could plan a few shots.</div>
+      <div class="message dimitry"><span class="sender">Dimitry</span>AirPods Pro and the iPhone 16 Pro. Maybe the watch too if I can find it.</div>
+      <div class="message you"><span class="sender">You</span>That gives us a few options. I can make a shot list before we start.</div>
+      <div class="message dimitry"><span class="sender">Dimitry</span>That would help. I don't really know what looks good on camera.</div>
+      <div class="message you"><span class="sender">You</span>No problem. We can test a couple of angles and choose together.</div>
+      <div class="message dimitry"><span class="sender">Dimitry</span>Cool. I can bring my small tripod and the lights.</div>
+      <div class="message you"><span class="sender">You</span>Could you bring a different shirt too? We might want the shots to look like separate scenes.</div>
+      <div class="message dimitry"><span class="sender">Dimitry</span>Sure, I have a few. Do you want me to dress formal or casual?</div>
+      <div class="message you"><span class="sender">You</span>Casual is probably easiest. A plain shirt would keep attention on the products.</div>
+      <div class="message dimitry"><span class="sender">Dimitry</span>Got it. I was worried you meant we needed actual costumes or something.</div>
+      <div class="message you"><span class="sender">You</span>No, nothing complicated. Just a change of shirt between setups if we have time.</div>
+      <div class="message dimitry"><span class="sender">Dimitry</span>Okay, that sounds manageable.</div>
+      <div class="message you"><span class="sender">You</span>Where should we meet? The clubhouse has good light in the afternoon.</div>
+      <div class="message dimitry"><span class="sender">Dimitry</span>Northpark clubhouse works. Should I ask anyone else to come?</div>
+      <div class="message you"><span class="sender">You</span>Maybe just us for the first pass. We can invite someone later if we need another person on camera.</div>
+      <div class="message dimitry"><span class="sender">Dimitry</span>Sure. I wasn't sure if you wanted me to invite people, so I'll leave it for now.</div>
+      <div class="message you"><span class="sender">You</span>Thanks. I like having a plan before adding more people.</div>
+      <div class="message dimitry"><span class="sender">Dimitry</span>Do you want me to bring snacks or anything?</div>
+      <div class="message you"><span class="sender">You</span>That is kind of you. You don't need to, but water would be useful.</div>
+      <div class="message dimitry"><span class="sender">Dimitry</span>I can bring water. I might be a few minutes late if the bus is slow.</div>
+      <div class="message you"><span class="sender">You</span>That's okay. Message me if you're running more than ten minutes behind.</div>
+      <div class="message dimitry"><span class="sender">Dimitry</span>Will do. So after your class, at the clubhouse, around 2?</div>
+      <div class="message you"><span class="sender">You</span>Yes, 2:15 gives me time to get there. Let's start with the shot list and see how much we get done.</div>
+      <div class="message dimitry"><span class="sender">Dimitry</span>Perfect. I'll bring the phone, AirPods, tripod, lights, and a plain shirt.</div>
+      <div class="message you"><span class="sender">You</span>Great, I'll bring the shot list. We can decide about the watch when you find it.</div>
+      <div class="message dimitry"><span class="sender">Dimitry</span>Sounds good. Thanks for organizing this with me.</div>
+      <div class="message you"><span class="sender">You</span>Of course. See you at 2:15!</div>
+      <p class="note">Tone and subtext notes in the extension are not to be fully trusted, listed intentions may not be 100% accurate.</p>
+    </main>
   </body>
 </html>

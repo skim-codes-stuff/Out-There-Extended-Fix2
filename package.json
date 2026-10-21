@@ -1,8 +1,8 @@
 {
   "name": "out-there-extended",
   "version": "1.0.0",
-  "description": "",
-  "main": "background.js",
+  "description": "A deterministic local chat-summary demo",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"

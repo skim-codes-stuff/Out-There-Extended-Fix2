@@ -1,525 +1,143 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-    </style>
-
     <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap" rel="stylesheet">
     <style>
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
-
-
+      * { box-sizing: border-box; margin: 0; padding: 0; }
       body {
         width: 550px;
-        height: 100%;
-        font-family: "Montserrat", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        background: #F9F9F9;
-        background: linear-gradient(180deg, rgba(255, 255, 255, 1) 40%, rgba(198, 212, 236, 1) 100%);
-        border-radius: 10px;
+        font-family: "Montserrat", "Segoe UI", Tahoma, sans-serif;
+        font-size: 15px;
+        font-weight: 450;
+        background: linear-gradient(180deg, #fff 40%, #c6d4ec 100%);
       }
-
-      /* ── Tab Bar ── */
-      .tabs {
-        display: flex;
-        background: #c6d4ec;
-      }
-
+      button, input { font: inherit; }
+      .tabs { display: flex; background: #c6d4ec; }
       .tab {
         flex: 1;
         padding: 10px;
-        text-align: center;
-        color: black;
+        border: 0;
+        border-radius: 12px 12px 0px 0px;
+        background: transparent;
+        color: #111;
         cursor: pointer;
-        font-size: 13px;
-        opacity: 0.6;
-        border: none;
-        background: none;
-        border-radius: 20px;
-        font-family: "Montserrat", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        font-family: inherit;
+        font-size: 14px;
         font-weight: 450;
-        font-style: normal;
+        box-sizing: border-box;
+        transition-duration: 0.2s;
       }
-
-      .tab.active {
-        opacity: 1;
-        border-bottom: 3px solid white;
-        border-bottom-left-radius: 0px;
-        border-bottom-right-radius: 0px;
-        font-size: 15px;
-        font-family: "Montserrat", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        font-weight: 600;
-        font-style: normal;
-        background: #4338ca;
-        color: white;
-      }
-
-      /* ── Pages ── */
-      .page {
-        display: none;
-        padding: 10px;
-      }
-
-      .page.active {
-        display: block;
-      }
-
-      /* ── Blank Content Area ── */
-      .content-area {
-        width: 100%;
-        height: fit-content;
-        background: white;
-        border: 1px solid #ddd;
+      .tab:hover { background: #a9bfe6; color: #fff; font-size: 16px; }
+      .tab.active { color: #fff; background: #4338ca; font-size: 18px; font-weight: 600; box-sizing: border-box; border-bottom: 6px solid white; transition-duration: 0.2s;}
+      .tab.active:hover { background: #3327bc; color: #fff; font-size: 18px; font-weight: 600; }
+      .page { display: none; padding: 10px; }
+      .page.active { display: block; }
+      .content-area { width: 100%; padding: 14px; border: 1px solid #ddd; border-radius: 10px; background: #fff; }
+      .fonttitle { margin: 4px 0; font-size: 36px; font-weight: 750; }
+      .fontsubtitle { margin: 8px 0; font-size: 24px; font-weight: 600; }
+      .fontsmallbody { font-size: 15px; font-weight: 450; line-height: 1.5; }
+      .fontbody { font-size: 20px; font-weight: 450; }
+      .fontsection { margin: 8px 0; color: #4338ca; font-size: 15px; font-weight: 550; }
+      .fontsub { color: #555; font-size: 14px; font-weight: 400; }
+      .callbutton {
+        margin-top: 12px;
+        padding: 10px 14px;
+        border: 0;
         border-radius: 10px;
-        padding: 12px;
+        background: #bacde6;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 20px;
+        font-weight: 450;
       }
-
-      .content-area-tabB {
-        width: 100%;
-        height: 150px;
-        background: white;
+      .clearbutton {
+        margin-top: 10px;
+        padding: 8px 12px;
+        border: 0;
+        border-radius: 10px;
+        background: #e6baba;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 18px;
+        font-weight: 700;
+      }
+      .callbutton:disabled { cursor: wait; opacity: 0.65; }
+      .status { min-height: 20px; margin-top: 8px; color: #444; font-size: 12px; font-weight: 450; }
+      .panel {
+        max-height: 230px;
+        margin-top: 10px;
+        overflow-y: auto;
         border: 1px solid #aaa;
-        border-radius: 12px;
-        margin-top: 8px;
+        border-radius: 10px;
+        padding: 8px;
+      }
+      .listitem {
+        display: block;
+        width: 100%;
+        margin-bottom: 8px;
+        padding: 8px;
+        border: 1px solid #aaa;
+        border-radius: 8px;
+        background: #f9f9f9;
+        text-align: left;
+        cursor: pointer;
+        font-family: inherit;
+      }
+      .content-area-tabB {
+        max-height: 390px;
+        margin-top: 12px;
         padding: 12px;
         overflow-y: auto;
-      }
-
-      /* ── API Key Tab ── */
-      label {
-        font-family: "Montserrat", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        font-weight: 450;
-        font-style: normal;
-        display: block;
-        font-size: 14px;
-        color: #555;
-        margin-bottom: 6px;
-      }
-
-      /* Text Input */
-      .textbox {
-        width: 100%;
-        padding: 8px;
-        border: 1px solid black;
-        font-family: "Montserrat", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        font-weight: 450;
-        font-style: normal;
-        border-radius: 12px;
-        font-size: 16px;
-        margin-bottom: 10px;
-        background: white;
-      } 
-
-      input[type="password"] {
-        color: #0a0658;
-      }
-
-      /* Buttons */
-
-      .tabbutton {
-        width: 100%;
-        padding: 9px;
-        background: #c6d4ec;
-        color: black;
-        border: none;
-        border-radius: 12px;
-        cursor: pointer;
-        font-size: 13px;
-        transition-duration: 0.3s;
-      }
-
-      .tabbutton:hover {
-        background: #4338ca;
-        color: white;
-        font-size: 15px;
-      }
-
-      .callbutton {
-        width: 250px;
-        padding: 8px;
-        background: #bacde6;
-        color: black;
-        border: none;
+        border: 1px solid #aaa;
         border-radius: 10px;
-        cursor: pointer;
-        font-size: 20px;
-        transition-duration: 0.3s;
+        background: #fff;
       }
-
-      .status {
-        margin-top: 8px;
-        font-size: 12px;
-        color: #666;
-      }
-
-      /* Text Levels */
-      .test { color: red; }
-
-      .hometitle {
-        color: #000000;
-        font-size: 30px;
-        text-align: center;
-        align-content: center;
-      }
-
-      .fonttitle {
-          font-family: "Montserrat", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-          font-weight: 750;
-          font-style: normal;
-          font-size: 36px;
-      }
-      .fontsubtitle {
-          font-family: "Montserrat", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-          font-weight: 600;
-          font-style: normal;
-          font-size: 24px;
-      }
-
-      .fontsection {
-          font-family: "Montserrat", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-          color: #666;
-          font-weight: 550;
-          font-style: normal;
-          font-size: 15px;
-      }
-
-      .fontbody {
-          font-family: "Montserrat", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-          font-weight: 450;
-          font-style: normal;
-          font-size: 20px;
-      }
-
-      .fontsmallbody {
-          font-family: "Montserrat", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-          font-weight: 450;
-          font-style: normal;
-          font-size: 15px;
-      }
-      .fontsub {
-          font-family: "Montserrat", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-          font-weight: 400;
-          color: #555;
-          font-style: normal;
-          font-size: 14px;
-      }
-
-      .indexbutton {
-          width: 80vw;
-          height: 50px;
-          font-family: "Montserrat", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-          font-weight: 550;
-          font-style: normal;
-          font-size: 24px;
-          text-align: left;
-          border-radius: 16px;
-          margin-top: 4px;
-          margin-bottom: 4px;
-      }
-
-      .panel {
-          width: auto;
-          height: 175px;
-          font-family: "Montserrat", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-          font-weight: 450;
-          font-style: normal;
-          font-size: 24px;
-          text-align: left;
-          border-radius: 12px;
-          overflow-y: auto;
-          border: 1px solid black;
-          padding: 8px;
-          padding-bottom: 0px;
-          display: flex;
-          flex-direction: column;
-      }
-
-      .listitem {
-          width: auto;
-          height: 52px;
-          background: #F9F9F9;
-          border: 1px solid #aaa;
-          border-radius: 6px;
-          text-align: left;
-          border-radius: 10px;
-          padding: 4px;
-          margin-bottom: 8px;
-      }
-
-      hr {
-        margin: 4px;
-        margin-top: 8px;
-        margin-bottom: 8px;
-      }
-
-      .pushinmore {
-        margin-left: 10px;
-      }
-
-      .success { color: #16a34a; }
-      .error-text { color: #dc2626; }
+      .pushinmore { margin: 0 0 10px 22px; }
+      .pushinmore li { margin: 5px 0; }
+      hr { margin: 10px 0; }
+      #headerImage { width: 50%; max-height: 125px; object-fit: cover; border-radius: 8px; }
     </style>
   </head>
   <body>
-
-    <!-- Tab Bar -->
     <div class="tabs">
-      <button class="tab active tabbutton" data-tab="tab1">Home</button>
-      <button class="tab tabbutton" data-tab="tab2">Contacts</button>
-      <button class="tab tabbutton" data-tab="tab3">Conversations</button>
-      <button class="tab tabbutton" data-tab="apikey">API Key</button>
+      <button class="tab active" data-tab="tab1">Home</button>
+      <button class="tab" data-tab="tab2">Contacts</button>
+      <button class="tab" data-tab="tab3">Conversations</button>
     </div>
 
-    <!-- Tab 1 -->
     <div class="page active" id="page-tab1">
       <div class="content-area">
-        <img src="icon/header.png" alt="Out There header image">
+        <img id="headerImage" src="icon/header.png" alt="Out There">
         <div class="fonttitle">Out There</div>
         <div class="fontsubtitle">Understand your interaction.</div>
-        <p class="fontsmallbody">Out There helps you track what you tell others while messaging, and what they tell you. It aims to help you understand intention and meaning in conversations.</p>
-        <div class="fontbody"> </div>
+        <p class="fontsmallbody">▸ Out There helps you track what you share to others on messaging sites, and what they share with you, and to help you interpret intention and meaning in conversations.</p>
         <button id="myButton" class="callbutton">Summarize Conversation</button>
-        <!--<div style="margin-top: 12px;">
-          <button id="testPageAIButton" class="callbutton" style="width: 240px; font-size: 15px;">Send Highlighted Text to AI</button>
-        </div>
-        <div style="margin-top: 12px;">
-          <button id="demoChatButton" class="callbutton" style="width: 220px; font-size: 18px;">Open Demo Chat</button>
-        </div>
-        <div style="margin-top: 12px;">
-          <button id="googleChatHistoryButton" class="callbutton" style="width: 240px; font-size: 15px;">Load Google Chat History</button>
-        </div>
-        <div id="myOutput" style="margin-top: 12px; white-space: pre-wrap; font-size: 12px; background: #f3f4f6; border: 1px solid #d1d5db; border-radius: 8px; padding: 10px; min-height: 60px; max-height: 220px; overflow: auto; word-break: break-word;"></div>
-      --></div>
+        <button id="demoChatButton" class="callbutton">Open Demo Chat</button>
+        <p id="summaryStatus" class="status" aria-live="polite"></p>
+        <button id="clearStorageButton" class="callbutton clearbutton">Clear Saved Data</button>
+      </div>
     </div>
 
-    <!-- Tab 2 -->
     <div class="page" id="page-tab2">
       <div class="content-area">
-        <input type="search" id="contactsearch" class="textbox" placeholder="Search contacts..." />
-        <div class="panel">
-          <button class="tabB listitem fontbody" data-tab="tab2.1">
-            Person 1
-            <div class="fontsub">Discord, Slack</div>
-          </button>
-          <button class="tabB listitem fontbody" data-tab="tab2.2">
-            Person 2
-            <div class="fontsub">Some website</div>
-          </button>
-          <button class="tabB listitem fontbody" data-tab="tab2.3">
-            Person 3
-            <div class="fontsub">Discord, Telegram Web</div>
-          </button>
-        </div>
+        <div class="fonttitle">Contacts</div>
+        <p class="fontsmallbody">▸ Person-level profiles: observed preferences, interaction style, shared references, and possible phrase meanings.</p>
+        <div class="panel"></div>
       </div>
     </div>
+    <div class="page" id="page-tab2.1"></div>
 
-    <!-- Tab 2.1 -->
-    <div class="page" id="page-tab2.1">
-      <div class="content-area">
-          <div class="fonttitle">Person 1</div>
-          <div class="fontsmallbody">Person 1's Description</div>
-          <div class="content-area-tabB">
-          <div class="fontsection">YOU SHARED:</div>
-          <div class="fontsmallbody">(AI summary) Enjoys eating pickles, climbing trees, and dancing on cars.</div>
-          <hr>
-          <div class="fontsection">PERSON 1 SHARED:</div>
-          <ul class="pushinmore">
-            <li class="fontsmallbody">Enjoys Diary of a Wimpy Kid</li>
-            <li class="fontsmallbody">Watches various tech review channels on YouTube</li>
-            <li class="fontsmallbody">Likes Starburst the best</li>
-            <li class="fontsmallbody">These should all be AI generated points</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <!-- Tab 2.2 -->
-    <div class="page" id="page-tab2.2">
-      <div class="content-area">
-          <div class="fonttitle">Person 2</div>
-          <div class="fontsmallbody">Person 2's Description</div>
-          <div class="content-area-tabB">
-          <div class="fontsection">YOU SHARED:</div>
-          <ul class="pushinmore">
-            <li class="fontsmallbody">Bike to school</li>
-            <li class="fontsmallbody">Wake up at 7AM</li>
-            <li class="fontsmallbody">Plays Tetris</li>
-          </ul>
-          <hr>
-          <div class="fontsection">PERSON 2 SHARED:</div>
-          <ul class="pushinmore">
-            <li class="fontsmallbody">Walks to school</li>
-            <li class="fontsmallbody">Has a fast heart rate</li>
-            <li class="fontsmallbody">Eats sandwiches for breakfast</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <!-- Tab 2.3 -->
-    <div class="page" id="page-tab2.3">
-      <div class="content-area">
-          <div class="fonttitle">Person 3</div>
-          <div class="fontsmallbody">Person 3's Description</div>
-          <div class="content-area-tabB">
-          <div class="fontsection">YOU SHARED:</div>
-          <ul class="pushinmore">
-            <li class="fontsmallbody">Likes Person 2</li>
-            <li class="fontsmallbody">Does soccer</li>
-            <li class="fontsmallbody">Is good in drawing skill</li>
-          </ul>
-          <hr>
-          <div class="fontsection">PERSON 3 SHARED:</div>
-          <ul class="pushinmore">
-            <li class="fontsmallbody">Is associated with Person 1</li>
-            <li class="fontsmallbody">Does not prefer to date</li>
-            <li class="fontsmallbody">Threatens to tell friends about things</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <!-- Tab 3 -->
     <div class="page" id="page-tab3">
       <div class="content-area">
-        <input type="search" id="conversationsearch" class="textbox" placeholder="Search conversations..." />
-        <div class="panel">
-          <button class="tabB listitem fontbody" data-tab="tab3.1">
-            Gamers Group Chat
-            <div class="fontsub">8/27/2026 - Discord</div>
-          </button>
-          <button class="tabB listitem fontbody" data-tab="tab3.2">
-            Person 2
-            <div class="fontsub">8/25/2026 - Slack</div>
-          </button>
-          <button class="tabB listitem fontbody" data-tab="tab3.3">
-            Johnson Class Group Chat
-            <div class="fontsub">9/1/2026 - Telegram Web</div>
-          </button>
-          </div>
-        </div>
+        <div class="fonttitle">Conversations</div>
+        <p class="fontsmallbody">▸ Moment-specific context, tone, subtext, and a takeaway from each conversation.</p>
+        <div class="panel"></div>
       </div>
     </div>
-
-    <!-- Tab 3.1 -->
-    <div class="page" id="page-tab3.1">
-      <div class="content-area">
-          <div class="fonttitle">Gamers Group Chat</div>
-          <div class="fontbody">Person 1, Person 3</div>
-          <div class="fontbody">8/27/2026 at 6:29 PM</div>
-          <div class="fontsmallbody">discord.gg (include a link, clicking will redirect to site)</div>
-          <div class="content-area-tabB">
-          <div class="fontsection">YOU SHARED:</div>
-          <ul class="pushinmore">
-            <li class="fontsmallbody">Died 18 times at the boss</li>
-            <li class="fontsmallbody">Got a diamond battleaxe</li>
-            <li class="fontsmallbody">Needs gems</li>
-          </ul>
-          <hr>
-          <div class="fontsection">PERSON 1 SHARED:</div>
-          <ul class="pushinmore">
-            <li class="fontsmallbody">Grinded for 2 hours</li>
-            <li class="fontsmallbody">Ate dinner and came back</li>
-          </ul>
-          <hr>
-          <div class="fontsection">PERSON 3 SHARED:</div>
-          <ul class="pushinmore">
-            <li class="fontsmallbody">Used 4 health potions</li>
-            <li class="fontsmallbody">Expanded camp</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <!-- Tab 3.2 -->
-    <div class="page" id="page-tab3.2">
-      <div class="content-area">
-          <div class="fonttitle">Person 2</div>
-          <div class="fontbody">Person 2</div>
-          <div class="fontbody">8/25/2026 at 9:47 PM</div>
-          <div class="fontsmallbody">slack.com (include a link, clicking will redirect to site)</div>
-          <div class="content-area-tabB">
-            <div class="fontsection">YOU SHARED:</div>
-            <ul class="pushinmore">
-              <li class="fontsmallbody">Dreamt about Person 2</li>
-              <li class="fontsmallbody">Cooked dinner for once in a long time</li>
-              <li class="fontsmallbody">Shared homework answers for 4b and 4d</li>
-            </ul>
-            <hr>
-            <div class="fontsection">PERSON 2 SHARED:</div>
-            <ul class="pushinmore">
-              <li class="fontsmallbody">Got rejected by crush, Person 3</li>
-              <li class="fontsmallbody">Bought groceries for next 2 weeks</li>
-            </ul>
-        </div>
-      </div>
-    </div>
-
-   <!-- Tab 3.3 -->
-    <div class="page" id="page-tab3.3">
-      <div class="content-area">
-          <div class="fonttitle">Johnson Class Group Chat</div>
-          <div class="fontbody">Person 1, Person 2, Person 3, Person 4, Person 5</div>
-          <div class="fontbody">9/1/2026 at 3:32 PM</div>
-          <div class="fontsmallbody">Telegram Web (include a link, clicking will redirect to site)</div>
-          <div class="content-area-tabB">
-            <div class="fontsection">YOU SHARED:</div>
-            <ul class="pushinmore">
-              <li class="fontsmallbody">Thing</li>
-            </ul>
-            <hr>
-            <div class="fontsection">PERSON 1 SHARED:</div>
-            <ul class="pushinmore">
-              <li class="fontsmallbody">Thing</li>
-            </ul>
-            <hr>
-            <div class="fontsection">PERSON 2 SHARED:</div>
-            <ul class="pushinmore">
-              <li class="fontsmallbody">Thing</li>
-            </ul>
-            <hr>
-            <div class="fontsection">PERSON 3 SHARED:</div>
-            <ul class="pushinmore">
-              <li class="fontsmallbody">Thing</li>
-            </ul>
-            <hr>
-            <div class="fontsection">PERSON 4 SHARED:</div>
-            <ul class="pushinmore">
-              <li class="fontsmallbody">Thing</li>
-            </ul>
-            <hr>
-            <div class="fontsection">PERSON 5 SHARED:</div>
-            <ul class="pushinmore">
-              <li class="fontsmallbody">Thing</li>
-            </ul>
-            <hr>
-        </div>
-      </div>
-    </div>
-
-    <!-- API Key -->
-    <div class="page" id="page-apikey">
-      <label>Groq API Key</label>
-      <input type="password" id="apiKey" class="textbox" placeholder="Paste your Groq API key..." />
-      <button class="callbutton" id="saveKey">Save Key</button>
-      <p class="status" id="key-status"></p>
-
-      <div style="margin-top: 24px;">
-        <label>Google Chat OAuth Access Token</label>
-        <input type="password" id="googleChatToken" class="textbox" placeholder="Paste your Google Chat access token..." />
-        <button class="callbutton" id="saveGoogleChatToken">Save Google Token</button>
-        <p class="status" id="google-chat-token-status"></p>
-      </div>
-
-      <div style="margin-top: 10px;">
-        <button class="callbutton" id="clearStorageButton" style="background: #f2d7d7;">Clear Saved Data</button>
-      </div>
-    </div>
-
+    <div class="page" id="page-tab3.1"></div>
 
     <script src="popup.js"></script>
   </body>
